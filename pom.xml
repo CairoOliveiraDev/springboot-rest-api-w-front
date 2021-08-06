@@ -38,6 +38,13 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+    </dependency>
+
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
@@ -86,21 +93,6 @@
     <artifactId>postgresql</artifactId>
     <version>9.4.1211.jre6</version>
 </dependency>
-    <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <version>2.5.3</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
-    <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger-ui</artifactId>
-      <version>3.0.0</version>
-    </dependency>
-
-
 
 
 

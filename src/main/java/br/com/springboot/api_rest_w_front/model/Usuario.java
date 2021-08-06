@@ -22,14 +22,6 @@ public class Usuario implements Serializable{
 	
 	private int idade;
 
-	public Usuario(){
-
-	}
-
-	public Usuario(String nome, int idade) {
-		this.nome = nome;
-		this.idade = idade;
-	}
 
 	public Long getId() {
 		return id;

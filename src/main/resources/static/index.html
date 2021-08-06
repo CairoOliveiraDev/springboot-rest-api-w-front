@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>CRUD Completo SpringBoot</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -19,7 +19,7 @@ html {
 
 <body>
 
-<h3>Spring Boot REST API CRUD Completo </h3>
+<h3>Cadastre um usuário abaixo:  </h3>
 
 
 <form action="" id="formCadastroUser">
@@ -91,7 +91,9 @@ html {
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script>
 
  <!-- Option 1: Bootstrap Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
@@ -101,129 +103,128 @@ html {
 <script type="text/javascript">
 
 
-function botaoDeletarDaTela(){
-	var id = $('#id').val();
-	
-	if(id != null && id.trim() != ''){
-	 deleteUser(id);
-	 document.getElementById('formCadastroUser').reset();
-	}
-	
-}
+    function botaoDeletarDaTela(){
+        var id = $('#id').val();
+
+        if(id != null && id.trim() != ''){
+         deleteUser(id);
+         document.getElementById('formCadastroUser').reset();
+        }
+
+    }
 
 
-function deleteUser(id){
-	
-	if(confirm('Deseja realmente deletar?')) {
-	
-	 $.ajax({
-			method : "DELETE",
-			url : "delete",
-			data : "iduser=" + id ,
-			success : function(response) {
-				
-				$('#'+ id).remove();
+    function deleteUser(id){
 
-				alert(response);	  
-			}
-		}).fail(function(xhr, status, errorThrown) {
-			alert("Erro ao deletar usuario por id: " + xhr.responseText);
-		});
-	 
-	}
-	
-}
+        if(confirm('Deseja realmente deletar?')) {
 
+         $.ajax({
+                method : "DELETE",
+                url : "/springboot-rest-api-sample/delete",
+                data : "iduser=" + id ,
+                success : function(response) {
 
-  function pesquisarUser(){
-	  var nome = $('#nameBusca').val();
-	  
-	  if (nome != null && nome.trim() != ''){
-		  
-		  
-		  $.ajax({
-				method : "GET",
-				url : "/springboot-rest-api-sample/buscarPorNome",
-				data : "name=" + nome ,
-				success : function(response) {
-				console.log(response)
-					$('#tabelaresultados > tbody > tr').remove();
-					
-					for (var i = 0; i < response.length; i++){
-						$('#tabelaresultados > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].id+'</td><td>'+response[i].nome+'</td><td><button type="button" onclick="colocarEmEdicao('+response[i].id+')" class="btn btn-primary">Ver</button></td><td><button type="button" class="btn btn-danger" onclick="deleteUser('+response[i].id+')">Delete</button></td></tr>');
-					}
-				  
-				}
-			}).fail(function(xhr, status, errorThrown) {
-				alert("Erro ao buscar usuario: " + xhr.responseText);
-			});
-		  
-	  }
-  }
-  
-  
-  
-  
-  function colocarEmEdicao(id) {
-	  
-	  
-	  $.ajax({
-			method : "GET",
-			url : "buscaruserid",
-			data : "iduser=" + id ,
-			success : function(response) {
+                    $('#'+ id).remove();
 
-				$("#id").val(response.id);
-				$("#nome").val(response.nome);
-				$("#idade").val(response.idade);
-				
-				$('#modalPesquisarUser').modal('hide');			  
-			}
-		}).fail(function(xhr, status, errorThrown) {
-			alert("Erro ao buscar usuario por id: " + xhr.responseText);
-		});
-	  
-	  
-  }
+                    alert(response);
+                }
+            }).fail(function(xhr, status, errorThrown) {
+                alert("Erro ao deletar usuario por id: " + xhr.responseText);
+            });
+
+        }
+
+    }
 
 
-	function salvarUsuario() {
+      function pesquisarUser(){
+          var nome = $('#nameBusca').val();
 
-		var id = $("#id").val();
-		var nome = $("#nome").val();
-		var idade = $("#idade").val();
-		
-		
-		if (nome == null || nome != null && nome.trim() == ''){
-			$("#nome").focus();
-			alert('Informe o nome');
-			return;
-		}
-		
-		if (idade == null || idade != null && idade.trim() == ''){
-			$("#idade").focus();
-			alert('Informe a idade');
-			return;
-		}
+          if (nome != null && nome.trim() != ''){
 
-		$.ajax({
-			method : "POST",
-			url : "/springboot-rest-api-sample/salvar",
-			data : JSON.stringify({
-				id : id,
-				nome : nome,
-				idade : idade
-			}),
-			contentType : "application/json; charset=utf-8",
-			success : function(response) {
-				$("#id").val(response.id);
-				alert("Gravou com sucesso!");
-			}
-		}).fail(function(xhr, status, errorThrown) {
-			alert("Erro ao salvar usuario: " + xhr.responseText);
-		});
 
-	}
+              $.ajax({
+                    method : "GET",
+                    url : "/springboot-rest-api-sample/buscarpornome",
+                    data : "name=" + nome ,
+                    success : function(response) {
+
+                        $('#tabelaresultados > tbody > tr').remove();
+
+                        for (var i = 0; i < response.length; i++){
+                            $('#tabelaresultados > tbody').append('<tr id="'+response[i].id+'"><td>'+response[i].id+'</td><td>'+response[i].nome+'</td><td><button type="button" onclick="colocarEmEdicao('+response[i].id+')" class="btn btn-primary">Ver</button></td><td><button type="button" class="btn btn-danger" onclick="deleteUser('+response[i].id+')">Delete</button></td></tr>');
+                        }
+
+                    }
+                }).fail(function(xhr, status, errorThrown) {
+                    alert("Erro ao buscar usuario: " + xhr.responseText);
+                });
+
+          } else {
+            alert("Erro A");
+
+          }
+      }
+
+
+
+
+      function colocarEmEdicao(id) {
+
+
+          $.ajax({
+                method : "GET",
+                url : "/springboot-rest-api-sample/buscaruserid",
+                data : "iduser=" + id ,
+                success : function(response) {
+
+                    $("#id").val(response.id);
+                    $("#nome").val(response.nome);
+                    $("#idade").val(response.idade);
+
+                    $('#modalPesquisarUser').modal('hide');
+                }
+            }).fail(function(xhr, status, errorThrown) {
+                alert("Erro ao buscar usuario por id: " + xhr.responseText);
+            });
+
+
+      }
+
+
+        function salvarUsuario() {
+
+            var id = $("#id").val();
+            var nome = $("#nome").val();
+            var idade = $("#idade").val();
+
+
+            if (nome == null || nome != null && nome.trim() == ''){
+                $("#nome").focus();
+                alert('Informe o nome');
+                return;
+            }
+
+            if (idade == null || idade != null && idade.trim() == ''){
+                $("#idade").focus();
+                alert('Informe a idade');
+                return;
+            }
+
+            $.ajax({
+                method : "POST",
+                url : "/springboot-rest-api-sample/salvar",
+                data : JSON.stringify({id : id, nome : nome, idade : idade}),
+                contentType : "application/json; charset=utf-8",
+                success : function(response) {
+                    $("#id").val(response.id);
+                    alert("Gravou com sucesso!");
+                }
+            }).fail(function(xhr, status, errorThrown) {
+                alert("Erro ao salvar usuario: " + xhr.responseText);
+            });
+
+        }
 </script>
 </body>
 </html>

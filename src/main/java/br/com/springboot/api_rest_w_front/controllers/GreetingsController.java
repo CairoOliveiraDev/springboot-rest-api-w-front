@@ -21,13 +21,15 @@ import br.com.springboot.api_rest_w_front.model.Usuario;
 import br.com.springboot.api_rest_w_front.repository.UsuarioRepository;
 
 @RestController
-@RequestMapping ("springboot-rest-api-sample/")
+@RequestMapping ("/springboot-rest-api-sample")
 public class GreetingsController {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 
-    @RequestMapping(value = "/{name}", method = RequestMethod.GET)
+
+
+    @RequestMapping(value = "/mostrarnome/{name}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String greetingText(@PathVariable String name) {
         return "Hello " + name + "!";
@@ -93,7 +95,7 @@ public class GreetingsController {
     
     @GetMapping(value = "buscarpornome") // mapear a url
     @ResponseBody // descreve a resposta
-    public ResponseEntity<java.util.List<Usuario>> buscarPorNome (@RequestParam(name = "name") String name){ // recebe os dados para consultar(pela query do repository)
+    public ResponseEntity<java.util.List<Usuario>> buscarPorNome ( @RequestParam(name = "name") String name){ // recebe os dados para consultar(pela query do repository)
     	java.util.List<Usuario> usuario = usuarioRepository.buscarPorNome(name.trim().toUpperCase());
     	return new ResponseEntity<java.util.List<Usuario>>(usuario, HttpStatus.OK);
     }
